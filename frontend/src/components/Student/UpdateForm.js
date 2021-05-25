@@ -20,8 +20,8 @@ const onSubmit = (e) => {
     alert('Please add a marks')
     return
   }
-  onUpdate()
-// onAdd({student_name,subject_name,ia1,ia2,termwork,endsem,owner})
+  onUpdate(subjectid,{subject_name,ia1,ia2,termwork,endsem,owner})
+
 setia1('')
 setia2('')
 settermwork('')
@@ -43,7 +43,7 @@ return (
 
 
     <div className="form-group col-md-6 m-2">  
-      <input type="number" className="form-control" placeholder="Subject Name" value={subject_name}
+      <input type="text" className="form-control" placeholder="Subject Name" value={subject_name}
           onChange={(e) => setsubject_name(e.target.value)}/>
     </div>
   

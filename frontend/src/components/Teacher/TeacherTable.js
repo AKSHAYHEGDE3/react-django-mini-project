@@ -7,7 +7,7 @@ const TeacherTable = ({marks,renderForm,addForm,updateForm,EditFormThere,deleteF
     let text=addForm?'Close':'New'
     let EditText=updateForm?'Close':'Edit'
     let DeleteText=deleteForm?'Close':'Delete'
-    let UploadText=uploadForm?'Close':'Upload'
+    let UploadText=uploadForm?'Close':'Excel'
     return (
         
         <div>
@@ -39,7 +39,7 @@ const TeacherTable = ({marks,renderForm,addForm,updateForm,EditFormThere,deleteF
 
 
             <div className="table-responsive">
-    <table className="table   table-info table-hover" >
+    <table className="table   table-info table-hover table-bordered" >
       <thead>
         <tr>
         <th scope="col" rowSpan="2">Student Id</th>
@@ -51,7 +51,7 @@ const TeacherTable = ({marks,renderForm,addForm,updateForm,EditFormThere,deleteF
             End Sem exam
           </th>
           <th scope="col" colSpan="2" style={{textAlign: "center"}}>
-            Total pointer
+            Percentage
           </th>
         </tr>
       </thead>
@@ -76,8 +76,9 @@ const TeacherTable = ({marks,renderForm,addForm,updateForm,EditFormThere,deleteF
 {/* {console.log()} */}
      {
      marks.map((data) => (
-        // <th style={{color:'white',background:'black'}}>{data.id}</th>
-        
+        // // <th style={{color:'white',background:'black'}}>{data.id}</th>
+        //  ((data.ia1+data.ia2+data.termwork+data.endsem)/145)*100
+          
         <tr key={data.id}>
         <th >{data.id}</th>
         <th >{data.student_roll}</th>
@@ -89,8 +90,8 @@ const TeacherTable = ({marks,renderForm,addForm,updateForm,EditFormThere,deleteF
       <td>25</td>
       <td>{data.endsem}</td>
       <td>80</td>
-      <td>{data.ia1}</td>
-      <td>{data.ia1}</td>
+      <td>{((data.ia1+data.ia2+data.termwork+data.endsem)/145)*100}</td>
+      <td>100</td>
      </tr>
      ))}
          

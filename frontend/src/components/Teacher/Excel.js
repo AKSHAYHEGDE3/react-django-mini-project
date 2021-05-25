@@ -10,7 +10,8 @@ const Excel = ({onUpload}) => {
      
      resp.rows.map(row=>{
         json1.push({'student_name':row[1],'student_roll':row[0],'ia1':row[2],'ia2':row[3],'termwork':row[4],'endsem':row[5],'owner':localStorage.getItem('id')})
-     })
+        return 1
+      })
        console.log(json1)
        console.log('Excel part')    
     });               

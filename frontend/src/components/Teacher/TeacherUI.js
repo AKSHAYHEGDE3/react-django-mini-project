@@ -3,7 +3,6 @@ import React from "react";
 import TeacherTable from "./TeacherTable";
 import SortedTable from './SortedTable'
 import AddForm from './AddFormTeach'
-//import PieChart from './PieChart'
 import EditForm from './EditForm'
 import PieChart from './PieChart'
 import DeleteForm from './DeleteForm'
@@ -74,6 +73,7 @@ const addStudent=async (newstudent)=>{
 const deleteStudent=(studentId)=>{
 
  fetch('http://localhost:8000/api/teachertable/'+studentId, { method: 'DELETE' })
+ window.location.reload();
 //  const getMarks = async () => {
 //   const tasksFromServer = await fetchStudents()
 //   setStudent(tasksFromServer)
@@ -81,22 +81,28 @@ const deleteStudent=(studentId)=>{
   //getMarks()
 }
 
-const updateStudent=()=>{
+const updateStudent=async (id1,data)=>{
+  console.log(id1,data)
+  const res = await fetch('http://localhost:8000/api/teacher?id='+id1,{
+    method:'PATCH',
+    headers:{'Content-type':'application/json'},
+    body:JSON.stringify(data)
+
+  })
+  const upstu=res.json()
+  console.log(upstu)
+  window.location.reload();
 
 }
 
 const uploadStudent=async (json1)=>{
 console.log(json1)
-// const res= await fetch('http://localhost:8000/api/teachertable/',{
-//     method:'POST',
-//     headers:{'Content-Type':'application/json'},
-//     body:JSON.stringify(newstudent)
 
-//   })
 const res=await fetch('http://localhost:8000/api/bulk',{
   method:'POST',
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify(json1)
+
 })
 const responseArray=await res.json();
 
@@ -108,6 +114,7 @@ if(responseArray.resp){
   setStudent([...student,element]);
   return 1;
 })}
+window.location.reload();
 
 }
 
@@ -135,7 +142,7 @@ if(responseArray.resp){
         UploadFormThere={UploadFormThere} uploadForm={uploadForm}/>
 {/* {console.log(owner)} */}
       <SortedTable sortList={sortList}/>
-      {/* <PieChart sortList={sortList}/> */}
+      <PieChart sortList={sortList}/>
     </div>
   );
 };

@@ -63,8 +63,31 @@ const [updateForm, setupdateForm] = useState(false)
     const DeleteFormThere=()=>{console.log("delete");setdeleteForm(!deleteForm)}
 
 
-const updateSubject=()=>{}
-const deleteSubject=(subjectId)=>{ fetch('http://localhost:8000/api/studenttable/'+subjectId, { method: 'DELETE' })}
+const updateSubject=async (id1,data)=>{
+    const res = await fetch('http://localhost:8000/api/student?id='+id1,{
+    method:'PATCH',
+    headers:{'Content-type':'application/json'},
+    body:JSON.stringify(data)
+
+  })
+  const upstu=res.json()
+  console.log(upstu)
+  window.location.reload();
+}
+// const deleteSubject=(subjectId)=>{ fetch('http://localhost:8000/api/studenttable/'+subjectId, { method: 'DELETE' });
+// window.location.reload();
+// }
+
+const deleteSubject=(studentId)=>{
+
+    fetch('http://localhost:8000/api/studenttable/'+studentId, { method: 'DELETE' })
+    // window.location.reload();
+   //  const getMarks = async () => {
+   //   const tasksFromServer = await fetchStudents()
+   //   setStudent(tasksFromServer)
+   // }
+     //getMarks()
+   }
 
     return (
         <div>
@@ -92,7 +115,6 @@ const deleteSubject=(subjectId)=>{ fetch('http://localhost:8000/api/studenttable
             <Graph subject={subject}/>
             {/* <Line1/> */}
         </div>
-    
     )
 
     }

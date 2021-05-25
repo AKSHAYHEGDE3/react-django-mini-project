@@ -1,6 +1,6 @@
 import React from 'react'
 import LogNav from './LogNav'
-import profile from './profile.jpg'
+import profile from '../profile.jpg'
 import img2 from '../img2.jpg'
 const About = () => {
     return (

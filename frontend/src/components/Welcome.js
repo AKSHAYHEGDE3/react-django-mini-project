@@ -54,10 +54,10 @@ const Welcome = () => {
 <h2>Connect</h2>
 		</div>
 <div className="col-12 social padding">
-	<a href="/"><i className="fab fa-facebook"></i></a>
-	<a href="/"><i className="fab fa-twitter"></i></a>
-	<a href="/"><i className="fab fa-google-plus-g"></i></a>
-	<a href="/" ><i className="fab fa-instagram"></i></a>
+	<a href="https://www.facebook.com/tejas.kolwankar"><i className="fab fa-facebook"></i></a>
+	<a href="https://twitter.com/KolwankarTejas"><i className="fab fa-twitter"></i></a>
+	<a href="tejaskowlankar021@gmail.com"><i className="fab fa-google-plus-g"></i></a>
+	<a href="https://www.instagram.com/tej_k_021/" ><i className="fab fa-instagram"></i></a>
 	<a href="/" ><i className="fab fa-youtube"></i></a>
 </div>
 

@@ -18,7 +18,7 @@ class StudentTable(models.Model):
 
 
 class TeacherTable(models.Model):
-    teacher_id= models.ForeignKey
+    teacher_id: models.ForeignKey
     student_name = models.CharField(max_length=20)
     owner = models.IntegerField(default=00)
     student_roll = models.IntegerField(default=0)

@@ -53,9 +53,11 @@ class StudentData(APIView):
         med = []
         if(len(sort) > 0):
             for i in sort:
-                if(i.ia1 < 10):
+                sum1 = (i.ia1+i.ia2+i.termwork+i.endsem)
+                percentage = (sum1/145)*100
+                if(percentage < 50):
                     slow.append(i.student_roll)
-                elif(i.ia1 < 15):
+                elif(percentage < 80):
                     med.append(i.student_roll)
                 else:
                     fast.append(i.student_roll)
@@ -89,6 +91,7 @@ class StudentTables(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = StudentTableSerializer
     lookup_url_kwarg = 'owner'
+    lookup_url_kwargs_id = 'id'
 
     def get(self, request, format=None):
         data1 = []
@@ -100,11 +103,47 @@ class StudentTables(APIView):
 
         return Response(data1, status=status.HTTP_200_OK)
 
+    def patch(self, request, format=None):
+        print(request)
+        id1 = request.GET.get(self.lookup_url_kwargs_id)
+        print(id1)
+        data = StudentTable.objects.filter(id=id1)
+        print(data)
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+
+            subject_name = serializer.data.get('subject_name')
+            ia1 = serializer.data.get('ia1')
+            ia2 = serializer.data.get('ia2')
+            termwork = serializer.data.get('termwork')
+            endsem = serializer.data.get('endsem')
+            id1 = serializer.data.get('id')
+
+            id1 = request.GET.get(self.lookup_url_kwargs_id)
+            data = StudentTable.objects.filter(id=id1)
+
+            subject = data[0]
+
+            subject.ia1 = ia1
+            subject.ia2 = ia2
+
+            subject.subject_name = subject_name
+            subject.endsem = endsem
+            subject.termwork = termwork
+
+            subject.save(update_fields=[
+                         'ia1', 'ia2', 'endsem', 'termwork', 'subject_name', ])
+            return Response(TeacherTableSerializer(subject).data, status=status.HTTP_200_OK)
+
+        return Response({'Bad Request': "Invalid Data..."}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class TeacherTables(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = TeacherTableSerializer
     lookup_url_kwargs = 'owner'
+    lookup_url_kwargs_id = 'id'
 
     def get(self, request, format=None):
         owner = request.GET.get(self.lookup_url_kwargs)
@@ -113,6 +152,41 @@ class TeacherTables(APIView):
         for i in data:
             data1.append(TeacherTableSerializer(i).data)
         return Response(data1, status=status.HTTP_200_OK)
+
+    def patch(self, request, format=None):
+        print(request)
+        id1 = request.GET.get(self.lookup_url_kwargs_id)
+        print(id1)
+        data = TeacherTable.objects.filter(id=id1)
+        print(data)
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            student_roll = serializer.data.get('student_roll')
+            student_name = serializer.data.get('student_name')
+            ia1 = serializer.data.get('ia1')
+            ia2 = serializer.data.get('ia2')
+            termwork = serializer.data.get('termwork')
+            endsem = serializer.data.get('endsem')
+            id1 = serializer.data.get('id')
+
+            id1 = request.GET.get(self.lookup_url_kwargs_id)
+            data = TeacherTable.objects.filter(id=id1)
+
+            student = data[0]
+
+            student.ia1 = ia1
+            student.ia2 = ia2
+            student.student_roll = student_roll
+            student.student_name = student_name
+            student.endsem = endsem
+            student.termwork = termwork
+
+            student.save(update_fields=[
+                         'ia1', 'ia2', 'endsem', 'termwork', 'student_name', 'student_roll'])
+            return Response(TeacherTableSerializer(student).data, status=status.HTTP_200_OK)
+
+        return Response({'Bad Request': "Invalid Data..."}, status=status.HTTP_400_BAD_REQUEST)
 
     # def patch(self,request,format=None):
 
@@ -131,7 +205,7 @@ class TeacherTables(APIView):
     #                                ia1=ia1, ia2=ia2, termwork=termwork, endsem=endsem, owner=owner1)
     #         print(student)
     #         student.save()
-    #         # return Response(TeacherTableSerializer(student), status=status.HTTP_200_OK)
+        return Response([], status=status.HTTP_200_OK)
 
 
 class TeacherBulk(APIView):

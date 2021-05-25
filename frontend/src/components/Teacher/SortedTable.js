@@ -118,3 +118,6 @@ export default SortedTable
 // {(!sortList.fast)?<tr><td>loading</td></tr>:sortList.fast.map((roll)=>(<tr key={roll.id}><td>{roll}</td></tr>))}
 
 
+
+   
+ 

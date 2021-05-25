@@ -2,6 +2,8 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import Login from './Login'
 
+
+
 import {useHistory} from 'react-router-dom'
 import Signup from './Signup'
 import LogNav from './LogNav'
@@ -10,6 +12,7 @@ const Loginer = () => {
    const [role, setrole] = useState('log')
 const history=useHistory();
     useEffect((loggedState) => {
+
       setrole(localStorage.getItem('role'))
         if(loggedState){
             fetch('http://localhost:8000/api/current_user/', {

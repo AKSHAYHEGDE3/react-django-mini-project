@@ -7,24 +7,24 @@ const EditForm = ({onUpdate}) => {
     const [ia2, setia2] = useState([])
     const [termwork, settermwork] = useState([])
     const [endsem, setendsem] = useState([])
-    // const [student_roll, setstudent_roll] = useState([])
+    const [student_roll, setstudent_roll] = useState([])
+    const [student_name, setstudent_name] = useState([])
     const [studentId, setstudentId] = useState([])
    
 
-    let owner=localStorage.getItem('id')
+    // let owner=localStorage.getItem('id')
 const onSubmit = (e) => {
   e.preventDefault()
 
-  if (ia1==='') {
-    alert('Please add a marks')
-    return
-  }
-  onUpdate()
+  
+  onUpdate(studentId,{ia1,ia2,termwork,endsem,student_roll,student_name})
 // onAdd({student_name,student_roll,ia1,ia2,termwork,endsem,owner})
 setia1('')
 setia2('')
 settermwork('')
 setendsem('')
+setstudent_name('')
+setstudent_roll('')
 // setstudent_roll('')
   
 }
@@ -40,6 +40,15 @@ return (
       <input type="number" className="form-control" placeholder="Student Id" value={studentId}
           onChange={(e) => setstudentId(e.target.value)}/>
     </div>
+    <div className="form-group col-md-6 m-2">  
+      <input type='number' min='0' max='20'className="form-control" placeholder="Roll no" value={student_roll}
+          onChange={(e) => setstudent_roll(e.target.value)}/>
+    </div>
+    <div className="form-group col-md-6 m-2">  
+      <input type='number' min='0' max='20'className="form-control" placeholder="Student Name" value={student_name}
+          onChange={(e) => setstudent_name(e.target.value)}/>
+    </div>
+    
   
     <div className="form-group col-md-6 m-2">  
       <input type='number' min='0' max='20'className="form-control" placeholder="Internal Assesment 1" value={ia1}
